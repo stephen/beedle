@@ -3,7 +3,8 @@ var jshint = require('gulp-jshint');
 var nodemon = require('gulp-nodemon');
 var rimraf = require('rimraf');
 var sourcemaps = require('gulp-sourcemaps');
-var traceur = require('gulp-traceur');
+var to5 = require("gulp-6to5");
+var concat = require("gulp-concat");
 
 var instance = {};
 var paths = {
@@ -14,24 +15,20 @@ var paths = {
 gulp.task('scripts-lib', function() {
   return gulp.src(paths.scripts)
     .pipe(sourcemaps.init())
-    .pipe(traceur({
-      blockBinding: 'parse',
-      generators: 'parse',
-      promises: 'parse'
+    .pipe(to5({
+      modules: 'common'
     }))
-    .pipe(sourcemaps.write())
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('build/bin'));
 });
 
 gulp.task('scripts-tests', function() {
   return gulp.src(paths.tests)
     .pipe(sourcemaps.init())
-    .pipe(traceur({
-      blockBinding: 'parse',
-      generators: 'parse',
-      promises: 'parse'
+    .pipe(to5({
+      modules: 'common'
     }))
-    .pipe(sourcemaps.write())
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('build/tests'));
 });
 
