@@ -1,1 +1,1 @@
-module.exports = require('./bin/');
+module.exports = require('./build/bin/');
